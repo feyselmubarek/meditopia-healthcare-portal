@@ -1,7 +1,8 @@
 import { Flex, Image, Input, Box, Button, Text, useToast, useColorModeValue } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/router";
+import { redirect } from 'next/navigation'
 
 const Login = () => {
   const { login, user } = useAuth();
@@ -35,10 +36,11 @@ const Login = () => {
 
   }
 
-  if (user) {
-    router.replace("/patients");
-    return null;
-  }
+  useEffect(() => {
+    if (user) {
+      router.replace("/patients")
+    }
+  }, [user])
   return (
     <Flex
       height="100vh"
